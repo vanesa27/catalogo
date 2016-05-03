@@ -1,0 +1,36 @@
+BEGIN;
+CREATE TABLE `ventas_categoria` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `nombre` varchar(100) NOT NULL,
+    `descripcion` longtext NOT NULL
+)
+;
+CREATE TABLE `ventas_marca` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `nombre` varchar(100) NOT NULL
+)
+;
+CREATE TABLE `ventas_producto_categoria` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `producto_id` integer NOT NULL,
+    `categoria_id` integer NOT NULL,
+    UNIQUE (`producto_id`, `categoria_id`)
+)
+;
+ALTER TABLE `ventas_producto_categoria` ADD CONSTRAINT `categoria_id_refs_id_a6e6da06` FOREIGN KEY (`categoria_id`) REFERENCES `ventas_categoria` (`id`);
+CREATE TABLE `ventas_producto` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `nombre` varchar(100) NOT NULL,
+    `descripcion` longtext NOT NULL,
+    `status` bool NOT NULL,
+    `imagen` varchar(100),
+    `precio` numeric(6, 2) NOT NULL,
+    `stock` integer NOT NULL,
+    `Marca_id` integer NOT NULL
+)
+;
+ALTER TABLE `ventas_producto` ADD CONSTRAINT `Marca_id_refs_id_fd45365b` FOREIGN KEY (`Marca_id`) REFERENCES `ventas_marca` (`id`);
+ALTER TABLE `ventas_producto_categoria` ADD CONSTRAINT `producto_id_refs_id_736ce9e0` FOREIGN KEY (`producto_id`) REFERENCES `ventas_producto` (`id`);
+CREATE INDEX `ventas_producto_a53f21e6` ON `ventas_producto` (`Marca_id`);
+
+COMMIT;

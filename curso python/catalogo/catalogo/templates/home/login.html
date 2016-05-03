@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Login
+{% endblock %}
+
+{% block content %}
+<center>
+	<form action="." method="POST" align="center">
+		{% csrf_token %}
+		{{mensaje}}
+		{{form.as_p}}
+		<input type="submit" class="btn btn-info" value ="login"/>
+	</form>
+	<form>
+		<a href="/registro/" class="btn btn-info">Registrar</a>
+	</form>
+</center>
+{% endblock %}
